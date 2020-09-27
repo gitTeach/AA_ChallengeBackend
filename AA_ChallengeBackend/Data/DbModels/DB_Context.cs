@@ -23,7 +23,7 @@ namespace Data.DbModels
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseSqlServer("Server=srv-dev-mssql.database.windows.net;Database=AA_Challenge; persist security info=True; user ID=aachallenge;Password=root123.;");
+                //optionsBuilder.UseSqlServer("Server=srv-dev-mssql.database.windows.net;Database=AA_Challenge; persist security info=True; user ID=aachallenge;Password=root123.;");
             }
         }
 
@@ -73,15 +73,14 @@ namespace Data.DbModels
 
                 entity.Property(e => e.MyDayDate).HasColumnType("date");
 
-                entity.Property(e => e.Notes)
-                    .IsRequired()
-                    .IsUnicode(false);
+                entity.Property(e => e.Notes).IsUnicode(false);
 
                 entity.Property(e => e.RemindDate).HasColumnType("date");
 
                 entity.HasOne(d => d.IdListNavigation)
                     .WithMany(p => p.TTask)
                     .HasForeignKey(d => d.IdList)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_t_Task_t_List");
             });
 
