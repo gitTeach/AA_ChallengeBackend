@@ -11,6 +11,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Services;
 
 namespace WebAPI
 {
@@ -27,6 +28,13 @@ namespace WebAPI
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+
+            var registerService = DiRegisterServices.GetServiceList();
+            foreach (var item in registerService)
+            {
+                services.AddScoped(item.GetInterface(), item.GetClass());
+            }
+
             services.AddDbContext<DB_Context>(options =>
              options.UseSqlServer(Configuration.GetConnectionString("CS_AA_Challenge")));
         }
