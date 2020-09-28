@@ -10,11 +10,11 @@ using Services;
 
 namespace WebAPI.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[action]/{id?}")]
     [ApiController]
     public class ListController : BaseAPIController
     {
-        public IListService _listService;
+        private readonly IListService _listService;
         private readonly IMapper _mapper;
         public ListController(IListService listService, IMapper mapper)
         {   
