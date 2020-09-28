@@ -24,7 +24,7 @@ namespace WebAPI.Controllers
 
         [HttpGet]
         [ActionName("GetListsForUser")]
-        public ActionResult<IEnumerable<ListDTO>> GetListForUser(string userId)
+        public ActionResult<IEnumerable<ListDTO>> GetListsForUser(string userId)
         {
             try
             {
@@ -39,7 +39,7 @@ namespace WebAPI.Controllers
 
         [HttpGet]
         [ActionName("GetListForUser")]
-        public ActionResult<ListDTO> GetCourseForAuthor(string userId, int listId)
+        public ActionResult<ListDTO> GetListForUser(string userId, int listId)
         {
             try
             {

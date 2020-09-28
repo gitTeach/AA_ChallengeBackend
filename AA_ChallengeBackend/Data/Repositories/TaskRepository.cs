@@ -75,19 +75,23 @@ namespace Data.Repositories
                 throw new ArgumentNullException(nameof(task.Id));
             }
 
-            var dbtask = _Db.TTask.Where(x => x.Id == task.Id).FirstOrDefault();
-
-            if (dbtask != null)
-            {
-                dbtask.Description = task.Description;
-                dbtask.RemindDate = task.RemindDate;
-                dbtask.DueDate = task.DueDate;
-                dbtask.MyDayDate = task.MyDayDate;
-                dbtask.Notes = task.Notes;
-                dbtask.IsCompleted = task.IsCompleted;
-                dbtask.IsImportant = task.IsImportant;
+            if (task != null) {
                 _Db.SaveChanges();
             }
+
+            //var dbtask = _Db.TTask.Where(x => x.Id == task.Id).FirstOrDefault();
+
+            //if (dbtask != null)
+            //{
+            //    dbtask.Description = task.Description;
+            //    dbtask.RemindDate = task.RemindDate;
+            //    dbtask.DueDate = task.DueDate;
+            //    dbtask.MyDayDate = task.MyDayDate;
+            //    dbtask.Notes = task.Notes;
+            //    dbtask.IsCompleted = task.IsCompleted;
+            //    dbtask.IsImportant = task.IsImportant;
+            //    _Db.SaveChanges();
+            //}
         }
         public bool Save()
         {
