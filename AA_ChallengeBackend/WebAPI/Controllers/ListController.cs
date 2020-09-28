@@ -23,7 +23,7 @@ namespace WebAPI.Controllers
         }
 
         [HttpGet]
-        [ActionName("getAll")]
+        [ActionName("GetListForUser")]
         public ActionResult<IEnumerable<ListDTO>> GetListForUser(string userId)
         {
             try

@@ -33,9 +33,7 @@ namespace Data.DbModels
             {
                 entity.ToTable("t_List");
 
-                entity.Property(e => e.Id)
-                    .HasComment("Id List")
-                    .ValueGeneratedNever();
+                entity.Property(e => e.Id).HasComment("Id List");
 
                 entity.Property(e => e.Description)
                     .HasMaxLength(200)
@@ -57,8 +55,6 @@ namespace Data.DbModels
             modelBuilder.Entity<TTask>(entity =>
             {
                 entity.ToTable("t_Task");
-
-                entity.Property(e => e.Id).ValueGeneratedNever();
 
                 entity.Property(e => e.Description)
                     .IsRequired()
