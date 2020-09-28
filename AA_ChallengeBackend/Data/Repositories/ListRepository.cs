@@ -71,7 +71,7 @@ namespace Data.Repositories
                 throw new ArgumentNullException(nameof(userId));
             }
 
-            return _Db.TList.Where(c => c.UserId == userId).OrderBy(c => c.Name).ToList();
+            return _Db.TList.Where(x => x.UserId == userId).OrderBy(x => x.Name).ToList();
         }
         public void UpdateList(TList list)
         {

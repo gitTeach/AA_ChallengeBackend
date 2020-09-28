@@ -13,6 +13,7 @@ namespace Services
             var list = new List<IClassType>();
             list.AddRange(DiRegisterData.GetDataList());
             list.Add(new ClassType<IListService, ListService>());
+            list.Add(new ClassType<ITaskService, TaskService>());
             return list;
         }
     }

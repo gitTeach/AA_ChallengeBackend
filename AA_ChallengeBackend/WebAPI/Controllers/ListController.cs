@@ -23,7 +23,7 @@ namespace WebAPI.Controllers
         }
 
         [HttpGet]
-        [ActionName("GetListForUser")]
+        [ActionName("GetListsForUser")]
         public ActionResult<IEnumerable<ListDTO>> GetListForUser(string userId)
         {
             try
@@ -36,6 +36,77 @@ namespace WebAPI.Controllers
                 return this.StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
             }
         }
+
+        [HttpGet]
+        [ActionName("GetListForUser")]
+        public ActionResult<ListDTO> GetCourseForAuthor(string userId, int listId)
+        {
+            try
+            {
+                var data = _listService.GetList(userId, listId);
+                if (data == null)
+                {
+                    return NotFound();
+                }
+
+                return Ok(_mapper.Map<ListDTO>(data));
+            }
+            catch (Exception ex)
+            {
+                return this.StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            }
+            
+        }
+
+        [HttpPost]
+        [ActionName("CreateListForUser")]
+        public ActionResult<ListDTO> CreateListForUser(string userId, ListToCreateDTO list)
+        {
+            try
+            {
+                var dblist = _mapper.Map<Data.DbModels.TList>(list);
+                _listService.AddList(userId, dblist);
+
+                var listToReturn = _mapper.Map<ListDTO>(dblist);
+                return CreatedAtRoute("GetListForUser",new { userId = userId, listId = listToReturn.Id },listToReturn);
+            }
+            catch (Exception ex)
+            {
+                return this.StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            }
+            
+        }
+
+        [HttpPut]
+        public IActionResult UpdateListForUser(string userId, int listId, ListToUpdateDTO list)
+        {
+
+            try
+            {
+                var dbList = _listService.GetList(userId, listId);
+
+                if (dbList == null)
+                {
+                    var listToAdd = _mapper.Map<Data.DbModels.TList>(list);
+
+                    _listService.AddList(userId, listToAdd);
+                    
+                    var listToReturn = _mapper.Map<ListDTO>(listToAdd);
+                    return CreatedAtRoute("GetListForUser",new { userId = userId, listId = listToReturn.Id }, listToReturn);
+                }
+
+                _mapper.Map(list, dbList);
+
+                _listService.UpdateList(dbList);
+
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                return this.StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            }
+        }
+
 
     }
 }

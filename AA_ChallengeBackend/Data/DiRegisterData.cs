@@ -12,6 +12,7 @@ namespace Data
         {
             var list = new List<IClassType>();
             list.Add(new ClassType<IListRepository, ListRepository>());
+            list.Add(new ClassType<ITaskRepository, TaskRepository>());
             return list;
         }
     }
