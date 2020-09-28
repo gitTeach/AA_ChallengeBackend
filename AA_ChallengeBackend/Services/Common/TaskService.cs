@@ -9,41 +9,41 @@ namespace Services
 {
     public class TaskService : ITaskService
     {
-        private readonly ITaskService _taskService;
+        private readonly ITaskRepository _taskRepository;
 
-        public TaskService(ITaskService taskService)
+        public TaskService(ITaskRepository taskRepository)
         {
-            _taskService = taskService;
+            _taskRepository = taskRepository;
         }
 
         public void AddTask(int idList, TTask task)
         {
-            _taskService.AddTask(idList, task);
+            _taskRepository.AddTask(idList, task);
         }
 
         public void DeleteTask(TTask task)
         {
-            _taskService.DeleteTask(task);
+            _taskRepository.DeleteTask(task);
         }
 
         public bool Exist(int idTask)
         {
-            return _taskService.Exist(idTask);
+            return _taskRepository.Exist(idTask);
         }
 
         public TTask GetTask(int idTask)
         {
-            return _taskService.GetTask(idTask);
+            return _taskRepository.GetTask(idTask);
         }
 
         public IEnumerable<TTask> GetTasks(int idList)
         {
-            return _taskService.GetTasks(idList);
+            return _taskRepository.GetTasks(idList);
         }
 
         public void UpdateTask(TTask task)
         {
-            _taskService.UpdateTask(task);
+            _taskRepository.UpdateTask(task);
         }
     }
 }

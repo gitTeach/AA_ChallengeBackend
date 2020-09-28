@@ -14,6 +14,7 @@ namespace WebAPI.Controllers
     [ApiController]
     public class TaskController : BaseAPIController
     {
+        
         private readonly IListService _listService;
         private readonly ITaskService _taskService;
         private readonly IMapper _mapper;
@@ -124,6 +125,7 @@ namespace WebAPI.Controllers
                 return this.StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
             }
         }
+        
 
     }
 }
