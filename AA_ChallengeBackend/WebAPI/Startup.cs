@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -48,6 +49,8 @@ namespace WebAPI
 
             services.AddControllers();
 
+            var key = Path.Combine(Directory.GetCurrentDirectory(), "key", "aachallenge-c529d-firebase-adminsdk-o0lcu-39863e8bd0.json");
+
             var registerService = DiRegisterServices.GetServiceList();
             foreach (var item in registerService)
             {
@@ -56,9 +59,14 @@ namespace WebAPI
 
             string value = Environment.GetEnvironmentVariable("GOOGLE_APPLICATION_CREDENTIALS");
 
-            var defaultApp = FirebaseApp.Create(new AppOptions()
+            //var defaultApp = FirebaseApp.Create(new AppOptions()
+            //{
+            //    Credential = GoogleCredential.GetApplicationDefault(),
+            //});
+
+            FirebaseApp.Create(new AppOptions
             {
-                Credential = GoogleCredential.GetApplicationDefault(),
+                Credential = GoogleCredential.FromFile(key)
             });
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
