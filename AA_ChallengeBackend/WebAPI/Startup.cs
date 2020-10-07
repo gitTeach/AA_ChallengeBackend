@@ -35,6 +35,17 @@ namespace WebAPI
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             services.AddMvc();
 
+            services.AddCors(options =>
+            {
+                options.AddDefaultPolicy(
+                    builder =>
+                    {
+                        builder.WithOrigins("http://localhost:4200")
+                                            .AllowAnyHeader()
+                                            .AllowAnyMethod();
+                    });
+            });
+
             services.AddControllers();
 
             var registerService = DiRegisterServices.GetServiceList();
@@ -79,7 +90,7 @@ namespace WebAPI
             }
 
             app.UseRouting();
-
+            app.UseCors();
             app.UseAuthentication();
             app.UseAuthorization();
 
