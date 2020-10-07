@@ -10,7 +10,7 @@ using Services;
 
 namespace WebAPI.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[action]/{id?}")]
     [ApiController]
     public class TaskController : BaseAPIController
     {
@@ -82,7 +82,7 @@ namespace WebAPI.Controllers
                 _taskService.AddTask(idList, dbTask);
 
                 var taskToReturn = _mapper.Map<TaskDTO>(dbTask);
-                return CreatedAtRoute("GetTasksForList", new { idList = idList}, taskToReturn);
+                return Ok(taskToReturn);
             }
             catch (Exception ex)
             {
@@ -92,6 +92,7 @@ namespace WebAPI.Controllers
         }
 
         [HttpPut]
+        [ActionName("UpdateTask")]
         public IActionResult UpdateTask( TaskToUpdateDTO task)
         {
 
@@ -118,7 +119,7 @@ namespace WebAPI.Controllers
 
                 _taskService.UpdateTask(dbTask);
 
-                return NoContent();
+                return Ok("Task has been updated");
             }
             catch (Exception ex)
             {
