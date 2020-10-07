@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Domain.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Services;
@@ -48,10 +49,12 @@ namespace WebAPI.Controllers
 
         [HttpGet]
         [ActionName("GetTask")]
+        [Authorize]
         public ActionResult<TaskDTO> GetTask(int idTask)
         {
             try
             {
+                var IsAuthenticated = HttpContext.User.Identity.IsAuthenticated;
                 var data = _taskService.GetTask(idTask);
                 if (data == null)
                 {

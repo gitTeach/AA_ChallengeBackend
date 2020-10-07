@@ -49,7 +49,7 @@ namespace WebAPI
 
             services.AddControllers();
 
-            var key = Path.Combine(Directory.GetCurrentDirectory(), "key", "aachallenge-c529d-firebase-adminsdk-o0lcu-39863e8bd0.json");
+            var key = Path.Combine(Directory.GetCurrentDirectory(), "key", "firebase_netcoreauth.json");
 
             var registerService = DiRegisterServices.GetServiceList();
             foreach (var item in registerService)
