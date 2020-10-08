@@ -99,7 +99,7 @@ namespace Data.Repositories
                         };
             if (idList != 0)
             {
-                query = query.Where(o => o.Id == idList);
+                query = query.Where(o => o.IdList == idList);
             }
             return query.ToList();
 
