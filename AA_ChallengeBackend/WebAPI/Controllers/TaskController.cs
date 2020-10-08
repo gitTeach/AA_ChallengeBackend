@@ -13,6 +13,7 @@ namespace WebAPI.Controllers
 {
     [Route("api/[controller]/[action]/{id?}")]
     [ApiController]
+    [Authorize]
     public class TaskController : BaseAPIController
     {
         
@@ -49,7 +50,6 @@ namespace WebAPI.Controllers
 
         [HttpGet]
         [ActionName("GetTask")]
-        [Authorize]
         public ActionResult<TaskDTO> GetTask(int idTask)
         {
             try

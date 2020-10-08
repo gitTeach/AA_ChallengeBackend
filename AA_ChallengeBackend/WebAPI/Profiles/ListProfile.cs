@@ -11,6 +11,15 @@ namespace WebAPI.Profiles
         public ListProfile()
         {
             CreateMap<Data.DbModels.TList, Domain.Models.ListDTO>();
+            CreateMap<Domain.Models.ListDTO, Data.DbModels.TList>();
+
+            CreateMap<Data.DbModels.TList, Domain.Models.ListToCreateDTO>();
+            CreateMap<Domain.Models.ListToCreateDTO, Data.DbModels.TList>();
+
+            CreateMap<Data.DbModels.TList, Domain.Models.ListToUpdateDTO>();
+            CreateMap<Domain.Models.ListToUpdateDTO, Data.DbModels.TList>();
+
+
             CreateMap<Data.DbModels.TTask, Domain.Models.TaskDTO>();
             CreateMap<Domain.Models.TaskDTO,  Data.DbModels.TTask>();
 

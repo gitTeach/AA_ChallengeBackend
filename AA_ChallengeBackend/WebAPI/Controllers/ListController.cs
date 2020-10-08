@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Domain.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Services;
@@ -12,6 +13,7 @@ namespace WebAPI.Controllers
 {
     [Route("api/[controller]/[action]/{id?}")]
     [ApiController]
+    [Authorize]
     public class ListController : BaseAPIController
     {
         private readonly IListService _listService;
@@ -60,15 +62,15 @@ namespace WebAPI.Controllers
 
         [HttpPost]
         [ActionName("CreateListForUser")]
-        public ActionResult<ListDTO> CreateListForUser(string userId, ListToCreateDTO list)
+        public ActionResult<ListDTO> CreateListForUser(ListToCreateDTO list)
         {
             try
             {
                 var dblist = _mapper.Map<Data.DbModels.TList>(list);
-                _listService.AddList(userId, dblist);
+                _listService.AddList(list.UserId, dblist);
 
                 var listToReturn = _mapper.Map<ListDTO>(dblist);
-                return CreatedAtRoute("GetListForUser",new { userId = userId, listId = listToReturn.Id },listToReturn);
+                return Ok(listToReturn);
             }
             catch (Exception ex)
             {
