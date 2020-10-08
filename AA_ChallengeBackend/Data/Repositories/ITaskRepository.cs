@@ -9,7 +9,7 @@ namespace Data.Repositories
     public interface ITaskRepository
     {
         IEnumerable<TTask> GetTasks(int idList);
-        IEnumerable<TaskDetailResponse> GetTasksForUser(string userId);
+        IEnumerable<TaskDetailResponse> GetTasksDetail(string userId, int idList);
         TTask GetTask(int idTask);
         void AddTask(int idList, TTask task);
         void UpdateTask(TTask task);

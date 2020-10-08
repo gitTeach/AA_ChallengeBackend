@@ -42,9 +42,9 @@ namespace Services
             return _taskRepository.GetTasks(idList);
         }
 
-        public IEnumerable<TaskDetailResponse> GetTasksForUser(string userId)
+        public IEnumerable<TaskDetailResponse> GetTasksDetail(string userId, int idList)
         {
-            return _taskRepository.GetTasksForUser(userId);
+            return _taskRepository.GetTasksDetail(userId, idList);
         }
 
         public void UpdateTask(TTask task)

@@ -70,7 +70,7 @@ namespace Data.Repositories
             return _Db.TTask.Where(x => x.IdList == idList).OrderBy(x => x.Description).ToList();
         }
 
-        public IEnumerable<TaskDetailResponse> GetTasksForUser(string userId)
+        public IEnumerable<TaskDetailResponse> GetTasksDetail(string userId, int idList)
         {
             if (string.IsNullOrEmpty(userId))
             {
@@ -97,6 +97,10 @@ namespace Data.Repositories
                             BDueDate = t.DueDate.ToShortDateString() == DateTime.Now.ToShortDateString() ? true : false,
                             BMyDayDate = (t.MyDayDate.GetValueOrDefault().ToShortDateString() ) == DateTime.Now.ToShortDateString() ? true : false
                         };
+            if (idList != 0)
+            {
+                query = query.Where(o => o.Id == idList);
+            }
             return query.ToList();
 
         }

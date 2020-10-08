@@ -50,12 +50,12 @@ namespace WebAPI.Controllers
         }
 
         [HttpGet]
-        [ActionName("GetTasksForUser")]
-        public ActionResult<TaskDetailResponse> GetTasksForList(string userId)
+        [ActionName("GetTasksDetail")]
+        public ActionResult<TaskDetailResponse> GetTasksDetail(string userId, int idList)
         {
             try
             {
-                var data = _taskService.GetTasksForUser(userId);
+                var data = _taskService.GetTasksDetail(userId, idList);
                 return Ok(data);
             }
             catch (Exception ex)
