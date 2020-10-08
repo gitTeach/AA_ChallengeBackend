@@ -47,6 +47,11 @@ namespace Services
             return _taskRepository.GetTasksDetail(userId, idList);
         }
 
+        public TaskOverallResponse GetTasksOverall(string userId, string category)
+        {
+            return _taskRepository.GetTasksOverall(userId, category);
+        }
+
         public void UpdateTask(TTask task)
         {
             _taskRepository.UpdateTask(task);

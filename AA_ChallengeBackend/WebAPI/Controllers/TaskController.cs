@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Domain.Models;
 using Domain.Models.Response;
+using Google.Apis.Http;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -65,6 +66,21 @@ namespace WebAPI.Controllers
         }
 
         [HttpGet]
+        [ActionName("GetTasksOverall")]
+        public ActionResult<TaskDetailResponse> GetTasksOverall(string userId, string category)
+        {
+            try
+            {
+                var data = _taskService.GetTasksOverall(userId, category);
+                return Ok(data);
+            }
+            catch (Exception ex)
+            {
+                return this.StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            }
+        }
+
+        [HttpGet]
         [ActionName("GetTask")]
         public ActionResult<TaskDTO> GetTask(int idTask)
         {
@@ -88,17 +104,17 @@ namespace WebAPI.Controllers
 
         [HttpPost]
         [ActionName("CreateTaskForList")]
-        public ActionResult<TaskDTO> CreateTaskForList(int idList, TaskToCreateDTO task)
+        public ActionResult<TaskDTO> CreateTaskForList([FromBody] TaskToCreateDTO task)
         {
             try
             {
-                if (!_listService.Exist(idList))
+                if (!_listService.Exist(task.IdList))
                 {
                     return NotFound();
                 }
 
                 var dbTask = _mapper.Map<Data.DbModels.TTask>(task);
-                _taskService.AddTask(idList, dbTask);
+                _taskService.AddTask(task.IdList, dbTask);
 
                 var taskToReturn = _mapper.Map<TaskDTO>(dbTask);
                 return Ok(taskToReturn);

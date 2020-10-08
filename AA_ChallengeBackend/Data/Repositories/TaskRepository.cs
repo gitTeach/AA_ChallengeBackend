@@ -3,6 +3,7 @@ using Domain.Models.Response;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices.WindowsRuntime;
 using System.Text;
 
 namespace Data.Repositories
@@ -140,6 +141,35 @@ namespace Data.Repositories
             if (disposing)
             {
                 
+            }
+        }
+
+        public TaskOverallResponse GetTasksOverall(string userId, string category)
+        {
+            try
+            {
+                var queryData = from t in _Db.TTask
+                                    join l in _Db.TList
+                                    on t.IdList equals l.Id
+                                    where l.UserId == userId
+                                    select new { T = t, L = l };
+
+                var tasksCompleted = queryData.Where(x => x.T.IsCompleted == true).Count();
+                var tasksDueToday = queryData.Where(x => x.T.DueDate.ToShortDateString() == DateTime.Now.ToShortDateString()).Count();
+                var tasksImportant = queryData.Where(x => x.T.IsImportant == true).Count();
+                var tasksPlannedForToday = queryData.Where(x => x.T.MyDayDate.GetValueOrDefault().ToShortDateString() == DateTime.Now.ToShortDateString()).Count();
+
+                return new TaskOverallResponse
+                {
+                    TasksCompleted = tasksCompleted,
+                    TasksDueToday = tasksDueToday,
+                    TasksImportant = tasksImportant,
+                    TasksPlannedForToday = tasksPlannedForToday
+                };
+            }
+            catch (Exception ex)
+            {   
+                throw;
             }
         }
     }
