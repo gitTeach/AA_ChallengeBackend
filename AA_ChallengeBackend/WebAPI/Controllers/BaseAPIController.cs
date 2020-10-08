@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Domain.Models;
 using FirebaseAdmin.Auth;
+using Microsoft.Net.Http.Headers;
 
 namespace WebAPI.Controllers
 {
@@ -14,6 +15,17 @@ namespace WebAPI.Controllers
     [ApiController]
     public class BaseAPIController : ControllerBase
     {
+
+        public async Task<string> GetUserIdFromToken()
+        {
+            var req = Request.Headers[HeaderNames.Authorization];
+            var sreq = req.ToString().Replace("Bearer ", "");
+            var token = sreq;
+            var response = await FirebaseAuth.DefaultInstance.VerifyIdTokenAsync(token);
+            return response.Uid;
+        }
+
+
         [HttpPost("verify")]
         public async Task<IActionResult> VerifyToken(TokenValidateRequest request)
         {
