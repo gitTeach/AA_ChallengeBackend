@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Domain.Models
+namespace Domain.Models.Response
 {
     public class TokenValidateRequest
     {

@@ -1,4 +1,5 @@
 ﻿using Data.DbModels;
+using Domain.Models.Response;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -8,6 +9,7 @@ namespace Data.Repositories
     public interface ITaskRepository
     {
         IEnumerable<TTask> GetTasks(int idList);
+        IEnumerable<TaskDetailResponse> GetTasksForUser(string userId);
         TTask GetTask(int idTask);
         void AddTask(int idList, TTask task);
         void UpdateTask(TTask task);

@@ -1,5 +1,6 @@
 ﻿using Data.DbModels;
 using Data.Repositories;
+using Domain.Models.Response;
 using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -39,6 +40,11 @@ namespace Services
         public IEnumerable<TTask> GetTasks(int idList)
         {
             return _taskRepository.GetTasks(idList);
+        }
+
+        public IEnumerable<TaskDetailResponse> GetTasksForUser(string userId)
+        {
+            return _taskRepository.GetTasksForUser(userId);
         }
 
         public void UpdateTask(TTask task)

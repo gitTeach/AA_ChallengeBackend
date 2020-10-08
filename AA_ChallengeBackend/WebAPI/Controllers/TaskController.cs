@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Domain.Models;
+using Domain.Models.Response;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -41,6 +42,21 @@ namespace WebAPI.Controllers
 
                 var data = _taskService.GetTasks(idList);
                 return Ok(_mapper.Map<IEnumerable<TaskDTO>>(data));
+            }
+            catch (Exception ex)
+            {
+                return this.StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            }
+        }
+
+        [HttpGet]
+        [ActionName("GetTasksForUser")]
+        public ActionResult<TaskDetailResponse> GetTasksForList(string userId)
+        {
+            try
+            {
+                var data = _taskService.GetTasksForUser(userId);
+                return Ok(data);
             }
             catch (Exception ex)
             {

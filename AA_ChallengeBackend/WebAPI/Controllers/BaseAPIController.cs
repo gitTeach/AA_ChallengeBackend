@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using FirebaseAdmin;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Domain.Models;
+using Domain.Models.Response;
 using FirebaseAdmin.Auth;
 using Microsoft.Net.Http.Headers;
 
