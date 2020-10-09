@@ -9,7 +9,7 @@ namespace Services
     public interface ITaskService
     {
         IEnumerable<TTask> GetTasks(int idList);
-        IEnumerable<TaskDetailResponse> GetTasksDetail(string userId, int idList);
+        IEnumerable<TaskDetailResponse> GetTasksDetail(string userId, int idList, string category);
         TaskOverallResponse GetTasksOverall(string userId, string category);
         TTask GetTask(int idTask);
         void AddTask(int idList, TTask task);

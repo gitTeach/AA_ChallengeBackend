@@ -52,11 +52,11 @@ namespace WebAPI.Controllers
 
         [HttpGet]
         [ActionName("GetTasksDetail")]
-        public ActionResult<TaskDetailResponse> GetTasksDetail(string userId, int idList)
+        public ActionResult<TaskDetailResponse> GetTasksDetail(string userId, int idList, string category)
         {
             try
             {
-                var data = _taskService.GetTasksDetail(userId, idList);
+                var data = _taskService.GetTasksDetail(userId, idList, category);
                 return Ok(data);
             }
             catch (Exception ex)
