@@ -82,17 +82,15 @@ namespace WebAPI.Controllers
 
         [HttpGet]
         [ActionName("GetTask")]
-        public ActionResult<TaskDTO> GetTask(int idTask)
+        public ActionResult<TaskDTO> GetTask(int idTask, string userId)
         {
             try
             {
-                var IsAuthenticated = HttpContext.User.Identity.IsAuthenticated;
-                var data = _taskService.GetTask(idTask);
+                var data = _taskService.GetTask(idTask, userId);
                 if (data == null)
                 {
                     return NotFound();
                 }
-
                 return Ok(_mapper.Map<TaskDTO>(data));
             }
             catch (Exception ex)
@@ -154,7 +152,7 @@ namespace WebAPI.Controllers
 
                 _taskService.UpdateTask(dbTask);
 
-                return Ok("Task has been updated");
+                return NoContent();
             }
             catch (Exception ex)
             {

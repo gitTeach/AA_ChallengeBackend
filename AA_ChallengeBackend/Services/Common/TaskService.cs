@@ -32,9 +32,9 @@ namespace Services
             return _taskRepository.Exist(idTask);
         }
 
-        public TTask GetTask(int idTask)
+        public TTask GetTask(int idTask, string userId="")
         {
-            return _taskRepository.GetTask(idTask);
+            return _taskRepository.GetTask(idTask, userId);
         }
 
         public IEnumerable<TTask> GetTasks(int idList)

@@ -41,7 +41,7 @@ namespace WebAPI
                 options.AddDefaultPolicy(
                     builder =>
                     {
-                        builder.WithOrigins("http://localhost:4200")
+                        builder.WithOrigins("http://localhost:4200", "https://netcoreauth.web.app")
                                             .AllowAnyHeader()
                                             .AllowAnyMethod();
                     });

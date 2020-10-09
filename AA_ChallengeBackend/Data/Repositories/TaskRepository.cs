@@ -52,14 +52,21 @@ namespace Data.Repositories
             return _Db.TTask.Any(x=> x.Id == idTask);
         }
 
-        public TTask GetTask(int idTask)
+        public TTask GetTask(int idTask, string userId = "")
         {
             if (idTask == 0)
             {
                 throw new ArgumentNullException(nameof(idTask));
             }
-
-            return _Db.TTask.Where(x => x.Id == idTask).FirstOrDefault();
+            if (!string.IsNullOrEmpty(userId) || !string.IsNullOrWhiteSpace(userId))
+            {
+                return _Db.TTask.Where(x => x.Id == idTask && x.IdListNavigation.UserId == userId).FirstOrDefault();
+            }
+            else
+            {
+                return _Db.TTask.Where(x => x.Id == idTask).FirstOrDefault();
+            }
+                
         }
 
         public IEnumerable<TTask> GetTasks(int idList)

@@ -11,7 +11,7 @@ namespace Services
         IEnumerable<TTask> GetTasks(int idList);
         IEnumerable<TaskDetailResponse> GetTasksDetail(string userId, int idList, string category);
         TaskOverallResponse GetTasksOverall(string userId, string category);
-        TTask GetTask(int idTask);
+        TTask GetTask(int idTask, string userId ="");
         void AddTask(int idList, TTask task);
         void UpdateTask(TTask task);
         void DeleteTask(TTask task);
