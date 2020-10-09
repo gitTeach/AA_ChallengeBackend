@@ -92,6 +92,7 @@ namespace Data.Repositories
                            l => l.Id,
                            t => t.IdList,
                            (l, t) => new { TList = l, TTask = t })
+                       .Where (x=> x.TList.UserId == userId)
                        .AsEnumerable().Select(x => new TaskDetailResponse() {
                            Id = x.TTask.Id,
                            IdList = x.TTask.IdList,
@@ -225,7 +226,7 @@ namespace Data.Repositories
                                       t => t.IdList,  
                                       (l, t) => new { TList = l, TTask = t })
                                    .AsEnumerable()
-                                   .Where( x=>x.TTask.DueDate.ToShortDateString() == DateTime.Now.ToShortDateString()).Count();
+                                   .Where( x=>x.TTask.DueDate.ToShortDateString() == DateTime.Now.ToShortDateString() && x.TList.UserId == userId).Count();
                 
                 var tasksPlannedForToday = _Db.TList
                                   .Join(_Db.TTask,
@@ -233,7 +234,7 @@ namespace Data.Repositories
                                      t => t.IdList,
                                      (l, t) => new { TList = l, TTask = t })
                                   .AsEnumerable()
-                                  .Where(x => x.TTask.MyDayDate.GetValueOrDefault().ToShortDateString() == DateTime.Now.ToShortDateString()).Count();
+                                  .Where(x => x.TTask.MyDayDate.GetValueOrDefault().ToShortDateString() == DateTime.Now.ToShortDateString() && x.TList.UserId == userId).Count();
 
                 
 
